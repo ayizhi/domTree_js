@@ -233,193 +233,214 @@ var TreeData = {
     }
 }
 
-var treeHtml = initMakeTreeHtml(TreeData.data.departmentStructure,'#dom-tree')
 
 
+function BuildNodeTree(data,select){
+    this.data = data;
+    this.paDom = select;
+    this.baseClassName = 'dom-tree';
+    this.liWidth = 110;
+    this.liMargin = 30;
 
+    this.init();
+    this.bindEvent();
+}
 
-//domTree初始化,需要结束后塞入html骨架
-function initMakeTreeHtml(data,select){
-    var tmpHtml = '<ul  class="dom-tree-list" >';
+BuildNodeTree.prototype = {
+    //domTree初始化,需要结束后塞入html骨架
+    init: function(){
+        var t = this;
+        var tmpHtml = '<ul  class="'+ t.baseClassName +'" >';
 
-    iterator(data)
+        iterator(this.data)
 
-    function iterator(data){
-        var id = data.id;
-        var name = data.name;
-        var children = data.children;
-        var children_ids = data.children_ids;
-        var parent_id = data.parent_id;
-        var admin_id = data.admin_id;
-        var admin_name = data.admin_name ? data.admin_name: '负责人空缺';
-        var nodeContent = parent_id != '0' ? '<div class="department-name node-content">' + name + '</div><div class="people-num node-content">(' + children_ids.length + '人)</div><div class="admin-info node-content" data-admin_id="' + admin_id + '">(' + admin_name + ')</div>' + '<div class="closeNodeBtn"></div>' : '<div class="department-name node-content">' + name + '</div>';
-        var addAdminBtn = ((admin_id == '0') && (parent_id != '0')) ? '<div class="add-admin-btn"></div>' : '';
-        var liClassName = ''
-        var tmpThis = '';//每一次的临时字段
+        function iterator(data){
+            var id = data.id;
+            var name = data.name;
+            var children = data.children;
+            var children_ids = data.children_ids;
+            var parent_id = data.parent_id;
+            var admin_id = data.admin_id;
+            var admin_name = data.admin_name ? data.admin_name: '负责人空缺';
+            var nodeContent = parent_id != '0' ? '<div class="department-name node-content">' + name + '</div><div class="people-num node-content">(' + children_ids.length + '人)</div><div class="admin-info node-content" data-admin_id="' + admin_id + '">(' + admin_name + ')</div>' + '<div class="closeNodeBtn"></div>' : '<div class="department-name node-content">' + name + '</div>';
+            var addAdminBtn = ((admin_id == '0') && (parent_id != '0')) ? '<div class="add-admin-btn"></div>' : '';
+            var liClassName = ''
+            var tmpThis = '';//每一次的临时字段
 
-        //处理li的className
-        liClassName += children_ids.length == 0 ? 'last-children' : '';
-        liClassName += parent_id == '0' ? 'original-node' : '';
+            //处理li的className
+            liClassName += children_ids.length == 0 ? 'last-children' : '';
+            liClassName += parent_id == '0' ? 'original-node' : '';
 
-        //由parent与children决定头顶竖线
-        if(children_ids.length == 0){
-            tmpThis = '<ul data-id="'+ id +'"><div class="node-line top-line"><p class="left-line"></p><p class="right-line"></p></div><li class="'+ liClassName +'">' + nodeContent + addAdminBtn + '</li>'
-        }else if(parent_id == '0'){
-            tmpThis = '<ul data-id="'+ id +'"><li class="' + liClassName + '">' + nodeContent + addAdminBtn + '</li><div class="node-line bottom-line"><p class="left-line"></p><p class="right-line"></p></div>'
-        }else{
-            tmpThis = '<ul data-id="'+ id +'"><div class="node-line top-line"><p class="left-line"></p><p class="right-line"></p></div><li class="'+ liClassName +'">' + nodeContent + addAdminBtn + '</li><div class="node-line bottom-line"><p class="left-line"></p><p class="right-line"></p></div>'
-        }
-
-
-        tmpHtml += tmpThis
-
-        if(children){
-            for(var i= 0,len=children.length;i<len;i++){
-                var thisChildren = children[i];
-                iterator(thisChildren)
+            //由parent与children决定头顶竖线
+            if(children_ids.length == 0){
+                tmpThis = '<ul data-id="'+ id +'"><div class="node-line top-line"><p class="left-line"></p><p class="right-line"></p></div><li class="'+ liClassName +'">' + nodeContent + addAdminBtn + '</li>'
+            }else if(parent_id == '0'){
+                tmpThis = '<ul class="original-parent-node" data-id="'+ id +'"><li class="' + liClassName + '">' + nodeContent + addAdminBtn + '</li><div class="node-line bottom-line"><p class="left-line"></p><p class="right-line"></p></div>'
+            }else{
+                tmpThis = '<ul data-id="'+ id +'"><div class="node-line top-line"><p class="left-line"></p><p class="right-line"></p></div><li class="'+ liClassName +'">' + nodeContent + addAdminBtn + '</li><div class="node-line bottom-line"><p class="left-line"></p><p class="right-line"></p></div>'
             }
-            tmpHtml += '</ul>'
-        }else{
-            tmpHtml += '</ul>'
-            return
-        }
-    }
-
-    tmpHtml += '</ul>'
-
-    $(select).html(treeHtml);
-
-    dealWithTreeStyle('.dom-tree-list')
 
 
-    return tmpHtml
-}
+            tmpHtml += tmpThis
 
-//调整树状图样式(目前主要是横向)(插入节点,删除节点每次都需要)
-function dealWithTreeStyle(select){
-    var treeList = $(select);
-    treeIterator(treeList);
-    function treeIterator(dom){
-        var $childUl = $(dom).children('ul');
-        if($childUl.length > 1){
-            //处理横向连线样式
-            $childUl.each(function (index) {
-                if(index == 0){
-                    $(this).children('.top-line').children('.right-line').css('border-top','2px dashed #ccc')
-                }else if(index == $childUl.length - 1){
-                    $(this).children('.top-line').children('.left-line').css('border-top','2px dashed #ccc')
-                }else{
-                    $(this).children('.top-line').children('.right-line').css('border-top','2px dashed #ccc')
-                    $(this).children('.top-line').children('.left-line').css('border-top','2px dashed #ccc')
+            if(children){
+                for(var i= 0,len=children.length;i<len;i++){
+                    var thisChildren = children[i];
+                    iterator(thisChildren)
                 }
-            })
-        }else{
-            $childUl.each(function () {
-                $(this).children('.top-line').children('.right-line').css('border-top','none')
-                $(this).children('.top-line').children('.left-line').css('border-top','none')
-            })
-        }
-        if($childUl.length == 0){
-            return
-        }else{
-            $childUl.each(function () {
-                treeIterator($(this))
-            })
+                tmpHtml += '</ul>'
+            }else{
+                tmpHtml += '</ul>'
+                return
+            }
         }
 
+        tmpHtml += '</ul>';
+
+        //装进父盒子
+        $(t.paDom).append($(tmpHtml));
+
+        //修改宽度,修改样式
+        t.dealTreeStyle();
+
+        return tmpHtml
+    },
+
+    bindEvent:function(){
+        var t = this;
+        $(document).on('click','li .closeNodeBtn', function () {
+            var $thisBtn = $(this);
+            var $pa = $(this).parent('li');
+            var $grand = $pa.parent('ul');
+            var id = $grand.attr('data-id');
+            if(!$thisBtn.hasClass('close')){
+                t.closeNode(id);
+                $thisBtn.addClass('close');
+            }else{
+                t.openNode(id);
+                $thisBtn.removeClass('close');
+            }
+        })
+    },
+
+
+    //调整树状图样式(目前主要是横向)(插入节点,删除节点每次都需要)
+    dealTreeStyle: function(){
+        var t = this;
+        var treeList = $(t.paDom);
+
+        //处理横向虚线
+        treeIterator(treeList);
+        function treeIterator(dom){
+            var $childUl = $(dom).children('ul');
+            if($childUl.length > 1){
+                //处理横向连线样式
+                $childUl.each(function (index) {
+                    if(index == 0){
+                        $(this).children('.top-line').children('.right-line').css('border-top','2px dashed #ccc')
+                    }else if(index == $childUl.length - 1){
+                        $(this).children('.top-line').children('.left-line').css('border-top','2px dashed #ccc')
+                    }else{
+                        $(this).children('.top-line').children('.right-line').css('border-top','2px dashed #ccc')
+                        $(this).children('.top-line').children('.left-line').css('border-top','2px dashed #ccc')
+                    }
+                })
+            }else{
+                $childUl.each(function () {
+                    $(this).children('.top-line').children('.right-line').css('border-top','none')
+                    $(this).children('.top-line').children('.left-line').css('border-top','none')
+                })
+            }
+            if($childUl.length == 0){
+                return
+            }else{
+                $childUl.each(function () {
+                    treeIterator($(this))
+                })
+            }
+
+        }
+
+        //处理宽度
+        var t = this;
+        var lastChildNum = $(t.paDom).find('.last-children').length;
+        console.log(lastChildNum)
+        console.log($(t.paDom).find('.last-children'));
+        var theWidth = lastChildNum * ( t.liWidth + t.liMargin );
+        var $theTree = $(t.paDom + ' .' + t.baseClassName);
+        $theTree.css('width',theWidth + 40 + 'px');
+    },
+
+    //关闭分支
+    closeNode: function(id){
+        var $parentNode = $('ul[data-id="'+ id +'"]');
+        var $tBottomLine = $parentNode.find('.bottom-line');
+        var $ul = $parentNode.find('ul');
+        var closeBtns = $ul.find('li .closeNodeBtn');
+        $tBottomLine.css("visibility","hidden");
+        $ul.css("visibility","hidden");
+    },
+
+    //插入分支
+    openNode: function(id){
+        var $parentNode = $('ul[data-id="'+ id +'"]');
+        var $tBottomLine = $parentNode.children('.bottom-line');
+        var $ul = $parentNode.find('ul');
+        var closeBtn = $ul.find('li').find('.closeNodeBtn');
+        $tBottomLine.css("visibility","visible");
+        $ul.css("visibility","visible");
+    },
+
+    //插入分支
+    insertNode: function (id,obj) {
+        var t = this;
+        var $targetNode = $('ul[data-id="'+ id +'"]');
+        var $targetLi = $targetNode.children('li')
+        var $siblings = $targetNode.children('ul');
+        var id = obj.id;
+        var name = obj.name;
+        var children = obj.children;
+        var children_ids = obj.children_ids;
+        var parent_id = obj.parent_id;
+        var admin_id = obj.admin_id ? obj.admin_id: '';
+        var admin_name = obj.admin_name ? obj.admin_name: '负责人空缺';
+        var addAdminBtn = ((admin_id == '0') && (parent_id != '0')) ? '<div class="add-admin-btn"></div>' : '';
+        var $newNode = $('<ul data-id="'+ id +'"><div class="node-line top-line"><p class="left-line"></p><p class="right-line"></p></div><li class="last-children">' + '<div class="department-name node-content">' + name + '</div><div class="people-num node-content">(' + children_ids.length + '人)</div><div class="admin-info node-content" data-admin_id="' + admin_id + '">(' + admin_name + ')</div>' + addAdminBtn + '</li></ul>');
+
+        //插入没有儿子的节点,需要给当前插入一个竖着的线
+        console.log('siblings',$siblings,$siblings.length);
+        if($siblings.length == 0){
+            //去除类名
+            $targetNode.children('li').removeClass('last-children');
+            //插入竖线与closeBtn
+            $targetNode.append($('<div class="node-line bottom-line"><p class="left-line"></p><p class="right-line"></p></div>'));
+            $targetLi.append($('<div class="closeNodeBtn"></div>'))
+        }
+
+        $targetNode.append($newNode);
+        t.dealTreeStyle();
+
+    },
+
+    //删除分支
+    deleteNode: function(id){
+        var t = this;
+        var $targetNode = $('ul[data-id="' + id + '"]');
+        var $paNode = $targetNode.parent('ul');
+        var $paNodeLi = $paNode.children('li');
+        var paId = $paNode.attr('data-id');
+        var $siblings = $targetNode.siblings('ul');
+
+        //没有兄弟节点,需要给paNode加上'last-children'的类名,并且去掉底部竖线
+        if($siblings.length == 0){
+            $paNodeLi.addClass('last-children');
+            $paNode.children('.bottom-line').remove();
+        }
+        $targetNode.remove();
+        t.dealTreeStyle();
     }
 }
 
-//关闭分支
-function closeNode(id){
-    var $parentNode = $('ul[data-id="'+ id +'"]');
-    var $tBottomLine = $parentNode.find('.bottom-line');
-    var $ul = $parentNode.find('ul');
-    var closeBtns = $ul.find('li .closeNodeBtn');
-    $tBottomLine.css("visibility","hidden");
-    $ul.css("visibility","hidden");
-    //closeBtns.each(function () {
-    //        $(this).addClass('close');
-    //})
-
-
-}
-//打开分支
-function openNode(id){
-    var $parentNode = $('ul[data-id="'+ id +'"]');
-    var $tBottomLine = $parentNode.children('.bottom-line');
-    var $ul = $parentNode.find('ul');
-    var closeBtn = $ul.find('li').find('.closeNodeBtn');
-    $tBottomLine.css("visibility","visible");
-    $ul.css("visibility","visible");
-    //closeBtn.removeClass('close');
-
-}
-
-//插入分支
-function insertNode(id,obj){
-    var $targetNode = $('ul[data-id="'+ id +'"]');
-    var $siblings = $targetNode.children('ul');
-    var id = obj.id;
-    var name = obj.name;
-    var children = obj.children;
-    var children_ids = obj.children_ids;
-    var parent_id = obj.parent_id;
-    var admin_id = obj.admin_id ? obj.admin_id: '';
-    var admin_name = obj.admin_name ? obj.admin_name: '负责人空缺';
-    var addAdminBtn = ((admin_id == '0') && (parent_id != '0')) ? '<div class="add-admin-btn"></div>' : '';
-    var $newNode = $('<ul data-id="'+ id +'"><div class="node-line top-line"><p class="left-line"></p><p class="right-line"></p></div><li class="last-children">' + '<div class="department-name node-content">' + name + '</div><div class="people-num node-content">(' + children_ids.length + '人)</div><div class="admin-info node-content" data-admin_id="' + admin_id + '">(' + admin_name + ')</div>' + addAdminBtn + '</li></ul>');
-
-    //插入没有儿子的节点,需要给当前插入一个竖着的线
-    if($siblings.length == 0){
-        //去除类名
-        $targetNode.children('li').removeClass('last-children');
-        //插入竖线
-        $targetNode.append($('<div class="node-line bottom-line"><p class="left-line"></p><p class="right-line"></p></div>'));
-    }
-
-    $targetNode.append($newNode);
-    dealWithTreeStyle('.dom-tree-list');
-
-
-}
-
-//删除分支
-function deleteNode(id){
-    var $targetNode = $('ul[data-id="' + id + '"]');
-    var $paNode = $targetNode.parent('ul');
-    var $paNodeLi = $paNode.children('li');
-    var paId = $paNode.attr('data-id');
-    var $siblings = $targetNode.siblings('ul');
-
-    //没有兄弟节点,需要给paNode加上'last-children'的类名,并且去掉底部竖线
-    if($siblings.length == 0){
-        $paNodeLi.addClass('last-children');
-        $paNode.children('.bottom-line').remove();
-    }
-    $targetNode.remove();
-    dealWithTreeStyle('.dom-tree-list');
-}
-
-
-$(document).on('click','li .closeNodeBtn', function () {
-    var $thisBtn = $(this);
-    var $pa = $(this).parent('li');
-    var $grand = $pa.parent('ul');
-    var id = $grand.attr('data-id');
-
-    console.log($thisBtn)
-
-    if(!$thisBtn.hasClass('close')){
-        closeNode(id);
-        $thisBtn.addClass('close');
-    }else{
-        console.log(12)
-        openNode(id);
-        $thisBtn.removeClass('close');
-    }
-
-
-})
+var treeHtml = new BuildNodeTree(TreeData.data.departmentStructure,'#orgnization-tree')
 
 
