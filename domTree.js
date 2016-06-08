@@ -233,18 +233,14 @@ var TreeData = {
     }
 }
 
-var treeHtml = initMakeTreeHtml(TreeData.data.departmentStructure,'organization-tree')
-
-$('#dom-tree').html(treeHtml);
-
-dealWithTreeStyle('#organization-tree')
+var treeHtml = initMakeTreeHtml(TreeData.data.departmentStructure,'#dom-tree')
 
 
 
 
 //domTree初始化,需要结束后塞入html骨架
 function initMakeTreeHtml(data,select){
-    var tmpHtml = '<ul  id="' + select + '" >';
+    var tmpHtml = '<ul  class="dom-tree-list" >';
 
     iterator(data)
 
@@ -290,6 +286,12 @@ function initMakeTreeHtml(data,select){
     }
 
     tmpHtml += '</ul>'
+
+    $(select).html(treeHtml);
+
+    dealWithTreeStyle('.dom-tree-list')
+
+
     return tmpHtml
 }
 
@@ -333,16 +335,25 @@ function closeNode(id){
     var $parentNode = $('ul[data-id="'+ id +'"]');
     var $tBottomLine = $parentNode.find('.bottom-line');
     var $ul = $parentNode.find('ul');
+    var closeBtns = $ul.find('li .closeNodeBtn');
     $tBottomLine.css("visibility","hidden");
     $ul.css("visibility","hidden");
+    //closeBtns.each(function () {
+    //        $(this).addClass('close');
+    //})
+
+
 }
 //打开分支
 function openNode(id){
     var $parentNode = $('ul[data-id="'+ id +'"]');
-    var $tBottomLine = $parentNode.find('.bottom-line');
+    var $tBottomLine = $parentNode.children('.bottom-line');
     var $ul = $parentNode.find('ul');
+    var closeBtn = $ul.find('li').find('.closeNodeBtn');
     $tBottomLine.css("visibility","visible");
     $ul.css("visibility","visible");
+    //closeBtn.removeClass('close');
+
 }
 
 //插入分支
@@ -368,7 +379,7 @@ function insertNode(id,obj){
     }
 
     $targetNode.append($newNode);
-    dealWithTreeStyle('#organization-tree');
+    dealWithTreeStyle('.dom-tree-list');
 
 
 }
@@ -387,7 +398,7 @@ function deleteNode(id){
         $paNode.children('.bottom-line').remove();
     }
     $targetNode.remove();
-    dealWithTreeStyle('#organization-tree');
+    dealWithTreeStyle('.dom-tree-list');
 }
 
 
@@ -397,10 +408,13 @@ $(document).on('click','li .closeNodeBtn', function () {
     var $grand = $pa.parent('ul');
     var id = $grand.attr('data-id');
 
+    console.log($thisBtn)
+
     if(!$thisBtn.hasClass('close')){
         closeNode(id);
         $thisBtn.addClass('close');
     }else{
+        console.log(12)
         openNode(id);
         $thisBtn.removeClass('close');
     }
