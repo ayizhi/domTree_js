@@ -262,8 +262,8 @@ BuildNodeTree.prototype = {
             var parent_id = data.parent_id;
             var admin_id = data.admin_id;
             var admin_name = data.admin_name ? data.admin_name: '负责人空缺';
-            var nodeContent = parent_id != '0' ? '<div class="department-name node-content">' + name + '</div><div class="people-num node-content">(' + children_ids.length + '人)</div><div class="admin-info node-content" data-admin_id="' + admin_id + '">(' + admin_name + ')</div>' + '<div class="closeNodeBtn"></div>' : '<div class="department-name node-content">' + name + '</div>';
-            var addAdminBtn = ((admin_id == '0') && (parent_id != '0')) ? '<div class="add-admin-btn"></div>' : '';
+            var nodeContent = parent_id != '0' ? '<div class="department-name node-content">' + name + '</div><div class="people-num node-content">(' + children_ids.length + '人)</div><div class="admin-info node-content" data-admin_id="' + admin_id + '">(' + admin_name + ')</div>' + '<div class="closeNodeBtn"><i class="icon icon-sum toggleChildren"></i></div>' : '<div class="department-name node-content">' + name + '</div>';
+            var addAdminBtn = ((admin_id == '0') && (parent_id != '0')) ? '<div class="add-admin-btn"><i class="icon icon-add3"></i></div>' : '';
             var liClassName = ''
             var tmpThis = '';//每一次的临时字段
 
@@ -404,7 +404,7 @@ BuildNodeTree.prototype = {
         var parent_id = obj.parent_id;
         var admin_id = obj.admin_id ? obj.admin_id: '';
         var admin_name = obj.admin_name ? obj.admin_name: '负责人空缺';
-        var addAdminBtn = ((admin_id == '0') && (parent_id != '0')) ? '<div class="add-admin-btn"></div>' : '';
+        var addAdminBtn = ((admin_id == '0') && (parent_id != '0')) ? '<div class="add-admin-btn"><i class="icon icon-add3"></i></div>' : '';
         var $newNode = $('<ul data-id="'+ id +'"><div class="node-line top-line"><p class="left-line"></p><p class="right-line"></p></div><li class="last-children">' + '<div class="department-name node-content">' + name + '</div><div class="people-num node-content">(' + children_ids.length + '人)</div><div class="admin-info node-content" data-admin_id="' + admin_id + '">(' + admin_name + ')</div>' + addAdminBtn + '</li></ul>');
 
         //插入没有儿子的节点,需要给当前插入一个竖着的线
@@ -414,7 +414,7 @@ BuildNodeTree.prototype = {
             $targetNode.children('li').removeClass('last-children');
             //插入竖线与closeBtn
             $targetNode.append($('<div class="node-line bottom-line"><p class="left-line"></p><p class="right-line"></p></div>'));
-            $targetLi.append($('<div class="closeNodeBtn"></div>'))
+            $targetLi.append($('<div class="closeNodeBtn"><i class="icon icon-sum toggleChildren"></i></div>'))
         }
 
         $targetNode.append($newNode);
@@ -449,9 +449,12 @@ var treeHtml = new BuildNodeTree(TreeData.data.departmentStructure,'#orgnization
 
 function BuildNodeList(data,select){
     var tmpHtml = '<ul  class="dom-list" >';
+    var employee_count = data['employee_count'];
+
 
     iterator(data)
     function iterator(treeData){
+
         iterator(treeData)
 
         function iterator(data){
@@ -462,7 +465,7 @@ function BuildNodeList(data,select){
             var parent_id = data.parent_id;
             var tmpThis = '';//每一次的临时字段
 
-            tmpThis = '<ul department-id="' + id + '"><li><p>' + name + '</p></li>'
+            tmpThis = '<ul department-id="' + id + '"><li><p><i class="icon icon-triangle toggleList"></i>' + name + '(' + children_ids.length + '人)' + '</p></li>'
 
             tmpHtml += tmpThis
 
@@ -479,13 +482,11 @@ function BuildNodeList(data,select){
         }
 
         tmpHtml += '</ul>';
+        tmpHtml += '<ul class="dom-list employee-count"><li><p>待分配(' + employee_count + '人)</p></li></ul>';
 
         return tmpHtml;
     }
-
     $(select).append(tmpHtml);
-    console.log(tmpHtml)
-
 }
 
 BuildNodeList(TreeData.data.departmentStructure,'#department-list')

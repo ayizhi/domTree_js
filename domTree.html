@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="icon/icon.css">
     <style>
         *{
             margin: 0;
@@ -17,32 +18,7 @@
             /*overflow: hidden;*/
         }
 
-        #orgnization-list{
-            float: left;
-            width: 500px;
-            height: 100%;
-            /*background: #e4e4e4;*/
-        }
-
-        #department-list{
-            width: 280px;
-            height: 100%;
-            padding: 0px 10px;
-            float: left;
-            background: #fcfcfc;
-            overflow-y: auto;
-            overflow-x: hidden;
-            border-right: #EEEEEE solid 1px;
-        }
-        #employee-list{
-            height: 100%;
-            width: 190px;
-            float: left;
-            overflow-y: auto;
-            overflow-x: hidden;
-            border-right: #eee solid 1px;
-        }
-
+        /*右边dom树*/
         #orgnization-tree{
             /*width: 100%;*/
             height: 100%;
@@ -103,12 +79,15 @@
         .dom-tree li .closeNodeBtn{
             width: 20px;
             height: 20px;
-            background: black;
+            /*background: black;*/
             position: absolute;
             left: 50%;
             top:60px;
             margin-left: -10px;
             border-radius: 50%;
+        }
+        .dom-tree li .closeNodeBtn i{
+            font-size: 20px;
         }
 
         .dom-tree li.last-children .closeNodeBtn{
@@ -118,11 +97,14 @@
         .dom-tree li .add-admin-btn{
             width: 20px;
             height: 20px;
-            background-color: #ccc;
             position: absolute;
             top:0;
             left: 100%;
         }
+        .dom-tree li .add-admin-btn i{
+            font-size: 20px;
+        }
+
 
         .dom-tree .node-line{
             height: 20px;
@@ -150,6 +132,87 @@
         }
         .dom-tree .node-line.has-boder-top .right-line{
             border-top: 2px dashed #ccc;
+        }
+
+
+        /*左边的ul*/
+        #orgnization-list{
+            float: left;
+            width: 500px;
+            height: 100%;
+            font-size: 14px;
+            /*background: #e4e4e4;*/
+        }
+
+        #department-list{
+            width: 280px;
+            height: 100%;
+            padding: 0px 10px 20px 10px;
+            float: left;
+            background: #fcfcfc;
+            overflow-y: auto;
+            overflow-x: hidden;
+            border-right: #EEEEEE solid 1px;
+        }
+        #employee-list{
+            height: 100%;
+            width: 190px;
+            float: left;
+            overflow-y: auto;
+            overflow-x: hidden;
+            border-right: #eee solid 1px;
+        }
+
+        .dom-list{
+            border-top: 1px solid #dddddd;
+        }
+
+        .dom-list ul p{
+            padding-left: 15px;
+        }
+        .dom-list ul ul p{
+            padding-left: 30px;
+        }
+        .dom-list ul ul ul p{
+            padding-left: 45px;
+        }
+        .dom-list ul ul ul ul p{
+            padding-left: 60px;
+        }
+        .dom-list ul ul ul ul ul p{
+            padding-left: 75px;
+        }
+        .dom-list ul ul ul ul ul ul p{
+            padding-left: 90px;
+        }
+        .dom-list ul ul ul ul ul ul ul p{
+            padding-left: 105px;
+        }
+
+
+        .dom-list li{
+            height:50px;
+            line-height: 50px;
+            border-bottom: 1px solid #dddddd;
+
+        }
+
+        .dom-list li p i{
+            color: #9c9c9c;
+            padding-right: 5px;
+        }
+
+        .dom-list.employee-count{
+            text-align: center;
+            color:#0094c1;
+            border-top: none;
+
+        }
+
+        .dom-list.employee-count li{
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
         }
 
 

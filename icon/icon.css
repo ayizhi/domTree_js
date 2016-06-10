@@ -1,0 +1,267 @@
+@font-face {
+    font-family: 'icomoon';
+    src:    url('fonts/icomoon.eot?suaiw');
+    src:    url('fonts/icomoon.eot?suaiw#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?suaiw') format('truetype'),
+        url('fonts/icomoon.woff?suaiw') format('woff'),
+        url('fonts/icomoon.svg?suaiw#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    /*-webkit-font-smoothing: antialiased;*/
+    /*-moz-osx-font-smoothing: grayscale;*/
+}
+
+.icon-help:before {
+    content: "\e900";
+}
+.icon-sort:before {
+    content: "\e901";
+}
+.icon-feedback:before {
+    content: "\e902";
+}
+.icon-triangle2:before {
+    content: "\e903";
+}
+.icon-left:before {
+    content: "\e904";
+}
+.icon-right:before {
+    content: "\e905";
+}
+.icon-assess:before {
+    content: "\e906";
+}
+.icon-contract:before {
+    content: "\e907";
+}
+.icon-entry:before {
+    content: "\e908";
+}
+.icon-initial:before {
+    content: "\e909";
+}
+.icon-post:before {
+    content: "\e90a";
+}
+.icon-rank:before {
+    content: "\e90b";
+}
+.icon-salary:before {
+    content: "\e90c";
+}
+.icon-worker:before {
+    content: "\e90d";
+}
+.icon-written:before {
+    content: "\e90e";
+}
+.icon-success:before {
+    content: "\e90f";
+}
+.icon-sum:before {
+    content: "\e910";
+}
+.icon-edit:before {
+    content: "\e911";
+}
+.icon-employee:before {
+    content: "\e912";
+}
+.icon-delete4:before {
+    content: "\e913";
+}
+.icon-list:before {
+    content: "\e914";
+}
+.icon-calculator:before {
+    content: "\e915";
+}
+.icon-cost:before {
+    content: "\e916";
+}
+.icon-deduction:before {
+    content: "\e917";
+}
+.icon-examination:before {
+    content: "\e918";
+}
+.icon-security:before {
+    content: "\e919";
+}
+.icon-allowance:before {
+    content: "\e91a";
+}
+.icon-archiving:before {
+    content: "\e91b";
+}
+.icon-decrease:before {
+    content: "\e91c";
+}
+.icon-record:before {
+    content: "\e91d";
+}
+.icon-tax:before {
+    content: "\e91e";
+}
+.icon-work:before {
+    content: "\e91f";
+}
+.icon-change:before {
+    content: "\e920";
+}
+.icon-employeeadd:before {
+    content: "\e921";
+}
+.icon-hr:before {
+    content: "\e922";
+}
+.icon-organization:before {
+    content: "\e923";
+}
+.icon-wages:before {
+    content: "\e924";
+}
+.icon-add3:before {
+    content: "\e925";
+}
+.icon-add2:before {
+    content: "\e926";
+}
+.icon-date:before {
+    content: "\e927";
+}
+.icon-delete3:before {
+    content: "\e928";
+}
+.icon-edit2:before {
+    content: "\e929";
+}
+.icon-address:before {
+    content: "\e92a";
+}
+.icon-annual:before {
+    content: "\e92b";
+}
+.icon-reminder2:before {
+    content: "\e92c";
+}
+.icon-retract:before {
+    content: "\e92d";
+}
+.icon-retract2:before {
+    content: "\e92e";
+}
+.icon-time:before {
+    content: "\e92f";
+}
+.icon-accounting:before {
+    content: "\e930";
+}
+.icon-company:before {
+    content: "\e931";
+}
+.icon-email:before {
+    content: "\e932";
+}
+.icon-erification:before {
+    content: "\e933";
+}
+.icon-export:before {
+    content: "\e934";
+}
+.icon-remarks:before {
+    content: "\e935";
+}
+.icon-add22:before {
+    content: "\e936";
+}
+.icon-arrow:before {
+    content: "\e937";
+}
+.icon-password:before {
+    content: "\e938";
+}
+.icon-question:before {
+    content: "\e939";
+}
+.icon-required:before {
+    content: "\e93a";
+}
+.icon-choice:before {
+    content: "\e93b";
+}
+.icon-close:before {
+    content: "\e93c";
+}
+.icon-framework:before {
+    content: "\e93d";
+}
+.icon-Import:before {
+    content: "\e93e";
+}
+.icon-screen:before {
+    content: "\e93f";
+}
+.icon-search:before {
+    content: "\e940";
+}
+.icon-upload:before {
+    content: "\e941";
+}
+.icon-add:before {
+    content: "\e942";
+}
+.icon-download:before {
+    content: "\e943";
+}
+.icon-news:before {
+    content: "\e944";
+}
+.icon-phone:before {
+    content: "\e945";
+}
+.icon-remind:before {
+    content: "\e946";
+}
+.icon-report:before {
+    content: "\e947";
+}
+.icon-triangle:before {
+    content: "\e948";
+}
+.icon-adm:before {
+    content: "\e949";
+}
+.icon-check:before {
+    content: "\e94a";
+}
+.icon-file:before {
+    content: "\e94b";
+}
+.icon-insuranc:before {
+    content: "\e94c";
+}
+.icon-set:before {
+    content: "\e94d";
+}
+.icon-home:before {
+    content: "\e94e";
+}
+.icon-payroll:before {
+    content: "\e94f";
+}
+
