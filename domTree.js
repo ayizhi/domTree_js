@@ -364,8 +364,6 @@ BuildNodeTree.prototype = {
         //处理宽度
         var t = this;
         var lastChildNum = $(t.paDom).find('.last-children').length;
-        console.log(lastChildNum)
-        console.log($(t.paDom).find('.last-children'));
         var theWidth = lastChildNum * ( t.liWidth + t.liMargin );
         var $theTree = $(t.paDom + ' .' + t.baseClassName);
         $theTree.css('width',theWidth + 40 + 'px');
@@ -373,7 +371,8 @@ BuildNodeTree.prototype = {
 
     //关闭分支
     closeNode: function(id){
-        var $parentNode = $('ul[data-id="'+ id +'"]');
+        var t = this;
+        var $parentNode = $(t.paDom + ' ul[data-id="'+ id +'"]');
         var $tBottomLine = $parentNode.find('.bottom-line');
         var $ul = $parentNode.find('ul');
         var closeBtns = $ul.find('li .closeNodeBtn');
@@ -383,7 +382,8 @@ BuildNodeTree.prototype = {
 
     //插入分支
     openNode: function(id){
-        var $parentNode = $('ul[data-id="'+ id +'"]');
+        var t = this;
+        var $parentNode = $(t.paDom + ' ul[data-id="'+ id +'"]');
         var $tBottomLine = $parentNode.children('.bottom-line');
         var $ul = $parentNode.find('ul');
         var closeBtn = $ul.find('li').find('.closeNodeBtn');
@@ -394,7 +394,7 @@ BuildNodeTree.prototype = {
     //插入分支
     insertNode: function (id,obj) {
         var t = this;
-        var $targetNode = $('ul[data-id="'+ id +'"]');
+        var $targetNode = $(t.paDom + ' ul[data-id="'+ id +'"]');
         var $targetLi = $targetNode.children('li')
         var $siblings = $targetNode.children('ul');
         var id = obj.id;
@@ -425,7 +425,7 @@ BuildNodeTree.prototype = {
     //删除分支
     deleteNode: function(id){
         var t = this;
-        var $targetNode = $('ul[data-id="' + id + '"]');
+        var $targetNode = $(t.paDom + ' ul[data-id="' + id + '"]');
         var $paNode = $targetNode.parent('ul');
         var $paNodeLi = $paNode.children('li');
         var paId = $paNode.attr('data-id');
@@ -444,3 +444,48 @@ BuildNodeTree.prototype = {
 var treeHtml = new BuildNodeTree(TreeData.data.departmentStructure,'#orgnization-tree')
 
 
+
+
+
+function BuildNodeList(data,select){
+    var tmpHtml = '<ul  class="dom-list" >';
+
+    iterator(data)
+    function iterator(treeData){
+        iterator(treeData)
+
+        function iterator(data){
+            var id = data.id;
+            var name = data.name;
+            var children = data.children;
+            var children_ids = data.children_ids;
+            var parent_id = data.parent_id;
+            var tmpThis = '';//每一次的临时字段
+
+            tmpThis = '<ul department-id="' + id + '"><li><p>' + name + '</p></li>'
+
+            tmpHtml += tmpThis
+
+            if(children){
+                for(var i= 0,len=children.length;i<len;i++){
+                    var thisChildren = children[i];
+                    iterator(thisChildren)
+                }
+                tmpHtml += '</ul>'
+            }else{
+                tmpHtml += '</ul>'
+                return
+            }
+        }
+
+        tmpHtml += '</ul>';
+
+        return tmpHtml;
+    }
+
+    $(select).append(tmpHtml);
+    console.log(tmpHtml)
+
+}
+
+BuildNodeList(TreeData.data.departmentStructure,'#department-list')
