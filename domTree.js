@@ -241,9 +241,7 @@ function BuildNodeTree(data,select){
     this.baseClassName = 'dom-tree';
     this.liWidth = 110;
     this.liMargin = 30;
-
     this.init();
-    this.bindEvent();
 }
 
 BuildNodeTree.prototype = {
@@ -306,23 +304,6 @@ BuildNodeTree.prototype = {
         return tmpHtml
     },
 
-    bindEvent:function(){
-        var t = this;
-        $(document).on('click','li .closeNodeBtn', function () {
-            var $thisBtn = $(this);
-            var $pa = $(this).parent('li');
-            var $grand = $pa.parent('ul');
-            var id = $grand.attr('data-id');
-            if(!$thisBtn.hasClass('close')){
-                t.closeNode(id);
-                $thisBtn.addClass('close');
-            }else{
-                t.openNode(id);
-                $thisBtn.removeClass('close');
-            }
-        })
-    },
-
 
     //调整树状图样式(目前主要是横向)(插入节点,删除节点每次都需要)
     dealTreeStyle: function(){
@@ -370,7 +351,7 @@ BuildNodeTree.prototype = {
     },
 
     //关闭分支
-    closeNode: function(id){
+    hideNode: function(id){
         var t = this;
         var $parentNode = $(t.paDom + ' ul[data-id="'+ id +'"]');
         var $tBottomLine = $parentNode.find('.bottom-line');
@@ -381,7 +362,7 @@ BuildNodeTree.prototype = {
     },
 
     //插入分支
-    openNode: function(id){
+    showNode: function(id){
         var t = this;
         var $parentNode = $(t.paDom + ' ul[data-id="'+ id +'"]');
         var $tBottomLine = $parentNode.children('.bottom-line');
@@ -397,7 +378,7 @@ BuildNodeTree.prototype = {
         var $targetNode = $(t.paDom + ' ul[data-id="'+ id +'"]');
         var $targetLi = $targetNode.children('li')
         var $siblings = $targetNode.children('ul');
-        var id = obj.id;
+        var department_id = obj.id;
         var name = obj.name;
         var children = obj.children;
         var children_ids = obj.children_ids;
@@ -405,10 +386,9 @@ BuildNodeTree.prototype = {
         var admin_id = obj.admin_id ? obj.admin_id: '';
         var admin_name = obj.admin_name ? obj.admin_name: '负责人空缺';
         var addAdminBtn = ((admin_id == '0') && (parent_id != '0')) ? '<div class="add-admin-btn"><i class="icon icon-add3"></i></div>' : '';
-        var $newNode = $('<ul data-id="'+ id +'"><div class="node-line top-line"><p class="left-line"></p><p class="right-line"></p></div><li class="last-children">' + '<div class="department-name node-content">' + name + '</div><div class="people-num node-content">(' + children_ids.length + '人)</div><div class="admin-info node-content" data-admin_id="' + admin_id + '">(' + admin_name + ')</div>' + addAdminBtn + '</li></ul>');
+        var $newNode = $('<ul data-id="'+ department_id +'"><div class="node-line top-line"><p class="left-line"></p><p class="right-line"></p></div><li class="last-children">' + '<div class="department-name node-content">' + name + '</div><div class="people-num node-content">(' + children_ids.length + '人)</div><div class="admin-info node-content" data-admin_id="' + admin_id + '">(' + admin_name + ')</div>' + addAdminBtn + '</li></ul>');
 
         //插入没有儿子的节点,需要给当前插入一个竖着的线
-        console.log('siblings',$siblings,$siblings.length);
         if($siblings.length == 0){
             //去除类名
             $targetNode.children('li').removeClass('last-children');
@@ -441,52 +421,146 @@ BuildNodeTree.prototype = {
     }
 }
 
-var treeHtml = new BuildNodeTree(TreeData.data.departmentStructure,'#orgnization-tree')
-
-
 
 
 
 function BuildNodeList(data,select){
-    var tmpHtml = '<ul  class="dom-list" >';
-    var employee_count = data['employee_count'];
+    this.data = data;
+    this.paDom = select;
+    this.baseClassName = 'dom-list';
 
-
-    iterator(data)
-    function iterator(treeData){
-
-        iterator(treeData)
-
-        function iterator(data){
-            var id = data.id;
-            var name = data.name;
-            var children = data.children;
-            var children_ids = data.children_ids;
-            var parent_id = data.parent_id;
-            var tmpThis = '';//每一次的临时字段
-
-            tmpThis = '<ul department-id="' + id + '"><li><p><i class="icon icon-triangle toggleList"></i>' + name + '(' + children_ids.length + '人)' + '</p></li>'
-
-            tmpHtml += tmpThis
-
-            if(children){
-                for(var i= 0,len=children.length;i<len;i++){
-                    var thisChildren = children[i];
-                    iterator(thisChildren)
-                }
-                tmpHtml += '</ul>'
-            }else{
-                tmpHtml += '</ul>'
-                return
-            }
-        }
-
-        tmpHtml += '</ul>';
-        tmpHtml += '<ul class="dom-list employee-count"><li><p>待分配(' + employee_count + '人)</p></li></ul>';
-
-        return tmpHtml;
-    }
-    $(select).append(tmpHtml);
+    this.init();
+    //this.init();
+    //this.bindEvent();
 }
 
-BuildNodeList(TreeData.data.departmentStructure,'#department-list')
+BuildNodeList.prototype = {
+    init: function () {
+        var t = this;
+        var tmpHtml = '<ul  class="' + t.baseClassName + '" >';
+        var employee_count = t.data['employee_count'];
+
+
+        iterator(t.data)
+        function iterator(treeData){
+
+            iterator(treeData)
+
+            function iterator(data){
+                var id = data.id;
+                var name = data.name;
+                var children = data.children;
+                var children_ids = data.children_ids;
+                var parent_id = data.parent_id;
+                var tmpThis = '';//每一次的临时字段
+
+                tmpThis = '<ul department-id="' + id + '"><li><p><i class="closeListBtn icon icon-triangle toggleList"></i>' + name + '(' + children_ids.length + '人)' + '<em class="add-function"><i class="icon icon-add22"></i></em></p></li>'
+
+                tmpHtml += tmpThis
+
+                if(children){
+                    for(var i= 0,len=children.length;i<len;i++){
+                        var thisChildren = children[i];
+                        iterator(thisChildren)
+                    }
+                    tmpHtml += '</ul>'
+                }else{
+                    tmpHtml += '</ul>'
+                    return
+                }
+            }
+
+            tmpHtml += '</ul>';
+            tmpHtml += '<ul class="dom-list employee-count"><li><p>待分配(' + employee_count + '人)</p></li></ul>';
+
+            return tmpHtml;
+        }
+        $(t.paDom).append(tmpHtml);
+    },
+
+    insertNode: function (id,obj) {
+        var t = this;
+        var $targetNode = $(t.paDom + ' ul[department-id="'+ id +'"]');
+        var $targetLi = $targetNode.children('li')
+        var $siblings = $targetNode.children('ul');
+        var department_id = obj.id;
+        var name = obj.name;
+        var children = obj.children;
+        var children_ids = obj.children_ids;
+        var parent_id = obj.parent_id;
+        var tmpThis = '<ul department-id="' + id + '"><li><p><i class="closeListBtn icon icon-triangle toggleList"></i>' + name + '(' + children_ids.length + '人)' + '<em class="add-function"><i class="icon icon-add22"></i></em></p></li>'
+
+        $targetNode.append($(tmpThis));
+    },
+
+    deleteNode: function (id) {
+        var t = this;
+        var $tDom = $(t.paDom + ' ul[department-id=' + id + ']');
+        $tDom.remove();
+    },
+
+    hideNode: function (id) {
+        var t = this;
+        var $tDom = $(t.paDom + ' ul[department-id=' + id + ']');
+        var $childrenNode = $tDom.children('ul');
+        $childrenNode.slideUp(100);
+    },
+
+    showNode: function (id) {
+        var t = this;
+        var $tDom = $(t.paDom + ' ul[department-id=' + id + ']');
+        var $childrenNode = $tDom.children('ul');
+        $childrenNode.slideDown(100);
+    },
+}
+
+
+
+function DepartmentStructureController(data){
+    this.data = data;
+    this.treePaDom = '#orgnization-tree';
+    this.listPaDom = '#department-list';
+    this.leftTree = new BuildNodeTree(this.data.data.departmentStructure,this.treePaDom);
+    this.rightList = new BuildNodeList(this.data.data.departmentStructure,this.listPaDom);
+    this.bindEvent();
+}
+
+DepartmentStructureController.prototype = {
+    bindEvent: function () {
+        var t = this;
+        var tree = '.' + t.leftTree.baseClassName;
+        var list = '.' + t.rightList.baseClassName;
+
+        //控制树状图的隐藏显示按钮
+        $(tree + ' li .closeNodeBtn').on('click', function () {
+            var $thisBtn = $(this);
+            var $pa = $(this).parent('li');
+            var $grand = $pa.parent('ul');
+            var id = $grand.attr('data-id');
+            if(!$thisBtn.hasClass('close')){
+                t.leftTree.hideNode(id);
+                $thisBtn.addClass('close');
+            }else{
+                t.leftTree.showNode(id);
+                $thisBtn.removeClass('close');
+            }
+        })
+
+        //控制列表的显示隐藏
+        $(list + ' li p .closeListBtn').on('click', function () {
+            var $thisBtn = $(this);
+            var $grand = $thisBtn.parent('p').parent('li').parent('ul');
+            var id = $grand.attr('department-id');
+
+            if(!$thisBtn.hasClass('close')){
+                t.rightList.hideNode(id);
+                $thisBtn.addClass('close');
+            }else{
+                t.rightList.showNode(id);
+                $thisBtn.removeClass('close');
+            }
+        })
+    },
+}
+
+var theController = new DepartmentStructureController(TreeData);
