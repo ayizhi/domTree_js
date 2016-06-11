@@ -82,42 +82,20 @@ var TreeData = {
                     "name": "测试一部2",
                     "parent_id": "d461b77bc762411e8ca7d886e796ea5c",
                     "employee_count": 1,
-                    "children_ids": ['ae627ddfa00647sdfa93574bcc322efaf'],
+                    "children_ids": ['7ffceb278dae4ab69d28b208f663a8ffa'],
                     "children": [
                         {
+                            "id": "7ffceb278dae4ab69d28b208f663a8ffa",
+                            "admin_id": "0",
+                            "admin_name": "",
+                            "name": "研发2",
+                            "parent_id": "7b84d91891de464e807d50bb0ad7619c",
+                            "employee_count": 0,
+                            "children_ids": [
+                                "ae627ddfa006473a93574bcc322e4dasfds",
+                                "ae627ddfa00647sdfa93574bcc322efaf",
+                            ],
                             "children": [
-                                {
-                                    "id": "ae627ddfa006473a93574bcc322e4dasfds",
-                                    "admin_id": "0",
-                                    "admin_name": "",
-                                    "name": "那几句话关键是2",
-                                    "parent_id": "7b84d91891de464e807d50bb0ad7619c",
-                                    "employee_count": 2,
-                                    "children_ids": [
-                                        "0db513c2c18d4be6a4e97cbb3dc5c5342",
-                                        "0db513c2c18d4be6a4e97cbb3dc5c4521"
-                                    ],
-                                    "children": [
-                                        {
-                                            "id": "0db513c2c18d4be6a4e97cbb3dc5c5342",
-                                            "admin_id": "0",
-                                            "admin_name": "",
-                                            "name": "三2",
-                                            "parent_id": "ae627ddfa006473a93574bcc322e4dasfds",
-                                            "employee_count": 0,
-                                            "children_ids": []
-                                        },
-                                        {
-                                            "id": "0db513c2c18d4be6a4e97cbb3dc5c4521",
-                                            "admin_id": "0",
-                                            "admin_name": "",
-                                            "name": "四2",
-                                            "parent_id": "ae627ddfa006473a93574bcc322e4dasfds",
-                                            "employee_count": 0,
-                                            "children_ids": []
-                                        }
-                                    ]
-                                },
                                 {
                                     "id": "ae627ddfa00647sdfa93574bcc322efaf",
                                     "admin_id": "0",
@@ -150,79 +128,8 @@ var TreeData = {
                                         }
                                     ]
                                 },
-                                {
-                                    "id": "ae627ddfa006dfhghda93574bcc322efaf",
-                                    "admin_id": "0",
-                                    "admin_name": "",
-                                    "name": "那几句话关键是4",
-                                    "parent_id": "7b84d91891de464e807d50bb0ad7619c",
-                                    "employee_count": 2,
-                                    "children_ids": [
-                                        "0db513c2c18d4basdsdae6a4e97cbb3dc5c5342",
-                                        "0db513c2csds18d4asdbe6a4e97cbb3dc5c4521"
-                                    ],
-                                    "children": [
-                                        {
-                                            "id": "0db513c2c18d4basdsdae6a4e97cbb3dc5c5342",
-                                            "admin_id": "0",
-                                            "admin_name": "",
-                                            "name": "三3",
-                                            "parent_id": "ae627ddfa006dfhghda93574bcc322efaf",
-                                            "employee_count": 0,
-                                            "children_ids": []
-                                        },
-                                        {
-                                            "id": "0db513c2csds18d4asdbe6a4e97cbb3dc5c4521",
-                                            "admin_id": "0",
-                                            "admin_name": "",
-                                            "name": "四3",
-                                            "parent_id": "ae627ddfa006dfhghda93574bcc322efaf",
-                                            "employee_count": 0,
-                                            "children_ids":[],
-                                            //"children_ids": ['0db513c2c18d4basdsdae6a4e97cbb3dc5c5342','0db513c2c18d4basdsdae6a4e97cbb3dc5c5342'],
-                                            //"children":[
-                                            //    {
-                                            //        "id": "0db513c2c18d4basdsdae6a4e97cbb3dc5c5342",
-                                            //        "admin_id": "0",
-                                            //        "admin_name": "",
-                                            //        "name": "三3",
-                                            //        "parent_id": "ae627ddfa006dfhghda93574bcc322efaf",
-                                            //        "employee_count": 0,
-                                            //        "children_ids": []
-                                            //    },
-                                            //    {
-                                            //        "id": "0db513c2c18d4basdsdae6a4e97cbb3dc5c5342",
-                                            //        "admin_id": "0",
-                                            //        "admin_name": "",
-                                            //        "name": "三3",
-                                            //        "parent_id": "ae627ddfa006dfhghda93574bcc322efaf",
-                                            //        "employee_count": 0,
-                                            //        "children_ids": []
-                                            //    },
-                                            //]
-                                        }
-                                    ]
-                                },
-                                //{
-                                //    "id": "0db513c2c18d4basdsdae6a4e97cbb3dc5c5342",
-                                //    "admin_id": "0",
-                                //    "admin_name": "",
-                                //    "name": "三3",
-                                //    "parent_id": "ae627ddfa006dfhghda93574bcc322efaf",
-                                //    "employee_count": 0,
-                                //    "children_ids": []
-                                //},
-
                             ],
-                            "id": "7ffceb278dae4ab69d28b208f663a8ffa",
-                            "admin_id": "0",
-                            "admin_name": "",
-                            "name": "研发2",
-                            "parent_id": "50acb522701848488f726a3d7cb3dc9a",
-                            "employee_count": 0,
-                            "children_ids": [
-                                "ae627ddfa006473a93574bcc322e4dad"
-                            ]
+
                         }
                     ]
 
@@ -503,6 +410,7 @@ BuildNodeList.prototype = {
         var t = this;
         var $tDom = $(t.paDom + ' ul[department-id=' + id + ']');
         var $childrenNode = $tDom.children('ul');
+        console.log($childrenNode);
         $childrenNode.slideUp(100);
     },
 
@@ -510,6 +418,8 @@ BuildNodeList.prototype = {
         var t = this;
         var $tDom = $(t.paDom + ' ul[department-id=' + id + ']');
         var $childrenNode = $tDom.children('ul');
+        console.log($childrenNode);
+
         $childrenNode.slideDown(100);
     },
 }
@@ -530,6 +440,7 @@ DepartmentStructureController.prototype = {
         var t = this;
         var tree = '.' + t.leftTree.baseClassName;
         var list = '.' + t.rightList.baseClassName;
+
 
         //控制树状图的隐藏显示按钮
         $(tree + ' li .closeNodeBtn').on('click', function () {
