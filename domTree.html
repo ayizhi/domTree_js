@@ -198,7 +198,15 @@
             height:50px;
             line-height: 50px;
             border-bottom: 1px solid #dddddd;
+            position: relative;
+        }
 
+        .dom-list li:hover{
+            background: rgba(0, 192, 239, 0.31);
+        }
+
+        .dom-list li:hover .add-function i{
+            color:#0094c1;
         }
 
         .dom-list li p i{
@@ -212,8 +220,44 @@
             float: right;
 
         }
+        .dom-list .add-function{
+            width: 30px;
+            position: absolute;
+            right: 0;
+            top:0;
+        }
+
         .dom-list .add-function i{
             color: #9c9c9c;
+        }
+
+        .dom-list .add-function .li-department-setting{
+            position: absolute;
+            display: block;
+            width: 80px;
+            right: 0px;
+            top: 45px;
+            text-align: center;
+            z-index: 99;
+            padding: 3px 0;
+            background: #ffffff;
+            box-shadow: 0px 0px 3px #aaaaaa;
+            border-radius: 3px;
+            line-height: 40px;
+            display: none;
+        }
+
+        .dom-list .add-function .li-department-setting{
+            cursor: pointer;
+        }
+
+        .dom-list .add-function .li-department-setting .setting-option{
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .dom-list .add-function .li-department-setting .setting-option:hover{
+            background: rgba(0, 192, 239, 0.31);
         }
 
         .dom-list.employee-count{

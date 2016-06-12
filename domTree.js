@@ -360,8 +360,9 @@ BuildNodeList.prototype = {
                 var children_ids = data.children_ids;
                 var parent_id = data.parent_id;
                 var tmpThis = '';//每一次的临时字段
+                var addBtnTmp = parent_id == '0' ? '<div class="add-function"><i class="icon icon-add22"></i><span class="li-department-setting"><div class="setting-option departname-add">添加部门</div><div class="setting-option departname-rename">重命名</div></span></div>' : '<div class="add-function"><i class="icon icon-add22"></i><span class="li-department-setting"><div class="setting-option departname-add">添加部门</div><div class="setting-option departname-rename">重命名</div><div class="setting-option departname-delete">删除</div></span></div>';
 
-                tmpThis = '<ul department-id="' + id + '"><li><p><i class="closeListBtn icon icon-triangle toggleList"></i>' + name + '(' + children_ids.length + '人)' + '<em class="add-function"><i class="icon icon-add22"></i></em></p></li>'
+                tmpThis = '<ul department-id="' + id + '"><li><p><i class="closeListBtn icon icon-triangle toggleList"></i>' + name + '(' + children_ids.length + '人)' + addBtnTmp + '</p></li>'
 
                 tmpHtml += tmpThis
 
@@ -395,7 +396,9 @@ BuildNodeList.prototype = {
         var children = obj.children;
         var children_ids = obj.children_ids;
         var parent_id = obj.parent_id;
-        var tmpThis = '<ul department-id="' + id + '"><li><p><i class="closeListBtn icon icon-triangle toggleList"></i>' + name + '(' + children_ids.length + '人)' + '<em class="add-function"><i class="icon icon-add22"></i></em></p></li>'
+        var addBtnTmp = '<div class="add-function"><i class="icon icon-add22"></i><span class="li-department-setting"><div class="setting-option department-add" >添加部门</div><div class="setting-option departname-rename">重命名</div><div class="setting-option department-delete">删除</div></span></div>';
+
+        var tmpThis = '<ul department-id="' + id + '"><li><p><i class="closeListBtn icon icon-triangle toggleList"></i>' + name + '(' + children_ids.length + '人)' + addBtnTmp + '</p></li>'
 
         $targetNode.append($(tmpThis));
     },
@@ -470,6 +473,17 @@ DepartmentStructureController.prototype = {
                 t.rightList.showNode(id);
                 $thisBtn.removeClass('close');
             }
+        })
+
+        //department部门添加删除重命名操作
+        $(list + ' li .add-function').mouseenter(function () {
+            var $t = $(this);
+            var settingLis = $t.find('.li-department-setting');
+            settingLis.show();
+        }).mouseleave(function () {
+            var $t = $(this);
+            var settingLis = $t.find('.li-department-setting');
+            settingLis.hide();
         })
     },
 }
