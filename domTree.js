@@ -252,33 +252,54 @@ BuildNodeTree.prototype = {
         //处理宽度
         var t = this;
         var lastChildNum = $(t.paDom).find('.last-children').length;
-        var theWidth = lastChildNum * ( t.liWidth + t.liMargin );
+        var childrenHideNum = $(t.paDom).find('.children-hidden').length;
+        var noNeedLastChildNum = $(t.paDom).find('.children-hidden').parent('ul').find('.last-children').length;
+        var theWidth = (+lastChildNum + +childrenHideNum - +noNeedLastChildNum) * ( t.liWidth + t.liMargin );
+        console.log(lastChildNum,childrenHideNum,noNeedLastChildNum)
+        console.log(theWidth)
         var $theTree = $(t.paDom + ' .' + t.baseClassName);
         $theTree.css('width',theWidth + 40 + 'px');
     },
 
-    //关闭分支
+    //隐藏分支
     hideNode: function(id){
         var t = this;
         var $parentNode = $(t.paDom + ' ul[data-id="'+ id +'"]');
+        var $paLi = $parentNode.children('li');
         var $tBottomLine = $parentNode.find('.bottom-line');
         var $ul = $parentNode.find('ul');
-        var closeBtns = $ul.find('li .closeNodeBtn');
-        $tBottomLine.css("visibility","hidden");
-        $ul.css("visibility","hidden");
+        var $closeBtns = $parentNode.children('li').children('.closeNodeBtn');
+
+        $closeBtns.children('i').removeClass('icon-sum').addClass('icon-add');
+        //$tBottomLine.css("visibility","hidden");
+        //$ul.css("visibility","hidden");
+        $paLi.addClass('children-hidden');
+        $tBottomLine.css("diplay","none");
+        $ul.css("display","none");
+        //修改宽度,修改样式
+        t.dealTreeStyle();
+
     },
 
-    //插入分支
+    //显示分支
     showNode: function(id){
         var t = this;
         var $parentNode = $(t.paDom + ' ul[data-id="'+ id +'"]');
         var $tBottomLine = $parentNode.children('.bottom-line');
         var $ul = $parentNode.find('ul');
-        var closeBtn = $ul.find('li').find('.closeNodeBtn');
-        $tBottomLine.css("visibility","visible");
-        $ul.css("visibility","visible");
-    },
+        var $paLi = $parentNode.children('li');
+        var $closeBtns = $parentNode.children('li').children('.closeNodeBtn');
 
+        $closeBtns.children('i').addClass('icon-sum').removeClass('icon-add');
+        //$tBottomLine.css("visibility","visible");
+        //$ul.css("visibility","visible");
+        $paLi.removeClass('children-hidden');
+        $tBottomLine.css("display","block");
+        $ul.css("display","block");
+        //修改宽度,修改样式
+        t.dealTreeStyle();
+
+    },
     //插入分支
     insertNode: function (id,obj) {
         var t = this;
