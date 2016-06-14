@@ -266,13 +266,11 @@ BuildNodeTree.prototype = {
         var t = this;
         var $parentNode = $(t.paDom + ' ul[data-id="'+ id +'"]');
         var $paLi = $parentNode.children('li');
-        var $tBottomLine = $parentNode.find('.bottom-line');
-        var $ul = $parentNode.find('ul');
+        var $tBottomLine = $parentNode.children('.bottom-line');
+        var $ul = $parentNode.children('ul');
         var $closeBtns = $parentNode.children('li').children('.closeNodeBtn');
 
         $closeBtns.children('i').removeClass('icon-sum').addClass('icon-add');
-        //$tBottomLine.css("visibility","hidden");
-        //$ul.css("visibility","hidden");
         $paLi.addClass('children-hidden');
         $tBottomLine.css("diplay","none");
         $ul.css("display","none");
@@ -286,13 +284,11 @@ BuildNodeTree.prototype = {
         var t = this;
         var $parentNode = $(t.paDom + ' ul[data-id="'+ id +'"]');
         var $tBottomLine = $parentNode.children('.bottom-line');
-        var $ul = $parentNode.find('ul');
+        var $ul = $parentNode.children('ul');
         var $paLi = $parentNode.children('li');
         var $closeBtns = $parentNode.children('li').children('.closeNodeBtn');
 
         $closeBtns.children('i').addClass('icon-sum').removeClass('icon-add');
-        //$tBottomLine.css("visibility","visible");
-        //$ul.css("visibility","visible");
         $paLi.removeClass('children-hidden');
         $tBottomLine.css("display","block");
         $ul.css("display","block");
