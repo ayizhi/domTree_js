@@ -18,276 +18,379 @@
             /*overflow: hidden;*/
         }
 
-        /*右边dom树*/
-        #orgnization-tree{
-            /*width: 100%;*/
-            height: 100%;
-            margin-left: 500px;
-            overflow: scroll;
-        }
+/*右边dom树*/
+#orgnization-tree {
+  margin-left: 40px;
+  overflow: scroll;
+  position: absolute;
+  width: 100%;
+  left: 500px; }
 
-        .dom-tree{
-            /*width: 2000px;*/
-            min-height: 500px;
-            margin: 40px;
-            padding-right: 40px;
-            box-sizing: border-box;
-        }
-        .dom-tree .original-parent-node{
-            /*margin :40px;*/
+.dom-tree {
+  /*width: 2000px;*/
+  min-height: 500px;
+  margin: 50px auto 100px auto;
+  padding: 0 40px 0 40px; }
 
-        }
+.dom-tree ul {
+  float: left;
+  box-sizing: border-box;
+  margin: auto; }
 
-        .dom-tree ul{
-            float: left;
-            box-sizing: border-box;
-            margin: auto;
-        }
+.dom-tree li {
+  width: 110px;
+  height: 60px;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 12px;
+  margin: auto;
+  box-sizing: border-box;
+  position: relative; }
+
+.dom-tree li.original-node {
+  width: 120px;
+  height: 50px;
+  line-height: 36px;
+  font-size: 14px; }
+
+.dom-tree li.last-children {
+  margin: 0 15px;
+  box-sizing: border-box; }
+
+.dom-tree li.children-hidden {
+  margin: 0 15px;
+  box-sizing: border-box; }
+
+.dom-tree li .node-content {
+  height: 10px;
+  text-align: center;
+  padding: 3px 2px 4px 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+
+.dom-tree li.original-node .node-content {
+  height: 100%; }
+
+.dom-tree li .closeNodeBtn {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  margin-left: -11px;
+  border-radius: 50%; }
+
+.dom-tree li .closeNodeBtn i {
+  font-size: 22px; }
+
+.dom-tree li.last-children .closeNodeBtn {
+  display: none; }
+
+.dom-tree li .node-admin-btn {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  color: #ccc;
+  font-size: 24px;
+  cursor: pointer; }
+
+.dom-tree li .node-admin-btn .float-alert {
+  background: white;
+  position: absolute;
+  width: 100px;
+  left: 20px;
+  bottom: 0px;
+  z-index: 100;
+  line-height: 20px;
+  box-shadow: 0 0 3px #999999;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 14px;
+  display: none; }
+
+.dom-tree li .node-admin-btn:hover .float-alert {
+  display: inline-block; }
+
+.dom-tree li .node-admin-btn:hover .icon-delete3 {
+  color: #fc2736; }
+
+.dom-tree li .node-admin-btn .admin-lenovo {
+  position: absolute;
+  top: 6px;
+  left: 4px;
+  display: none; }
+  .dom-tree li .node-admin-btn .admin-lenovo .search-list-out .icon-search {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    z-index: 999;
+    color: #999999;
+    font-size: 20px; }
+  .dom-tree li .node-admin-btn .admin-lenovo li {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background-color: #fff;
+    color: #555555;
+    border-radius: 0px;
+    font-size: 14px;
+    margin: auto;
+    box-sizing: border-box; }
+    .dom-tree li .node-admin-btn .admin-lenovo li span {
+      height: 40px;
+      line-height: 40px; }
+
+.dom-tree .node-line {
+  height: 20px;
+  box-sizing: border-box; }
+
+.dom-tree .node-line .left-line {
+  display: block;
+  box-sizing: border-box;
+  width: 50%;
+  height: 100%;
+  border-right: 1px dashed #ccc;
+  float: left; }
+
+.dom-tree .node-line .right-line {
+  display: block;
+  box-sizing: border-box;
+  width: 50%;
+  height: 100%;
+  border-left: 1px dashed #ccc;
+  float: right; }
+
+.dom-tree .node-line.has-boder-top .left-line {
+  border-top: 2px dashed #ccc; }
+
+.dom-tree .node-line.has-boder-top .right-line {
+  border-top: 2px dashed #ccc; }
+
+/*左边的ul*/
+#orgnization-list {
+  float: left;
+  width: 500px;
+  height: 100%;
+  font-size: 14px;
+  position: relative;
+  left: 0; }
+
+#orgnization-list.close {
+  left: -500px; }
+  #orgnization-list.close #department-list {
+    display: none; }
+  #orgnization-list.close #employee-list {
+    display: none; }
+
+#department-list {
+  display: block;
+  width: 300px;
+  height: 100%;
+  padding: 0px 10px 50px 10px;
+  background: #fcfcfc;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-right: #EEEEEE solid 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box; }
+
+#show-list-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 500px;
+  width: 40px;
+  height: 40px;
+  line-height: 45px;
+  text-align: center;
+  color: #fff;
+  cursor: pointer; }
+  #show-list-btn i {
+    font-size: 20px; }
+
+.dom-list ul p {
+  padding-left: 15px; }
+
+.dom-list ul ul p {
+  padding-left: 30px; }
+
+.dom-list ul ul ul p {
+  padding-left: 45px; }
+
+.dom-list ul ul ul ul p {
+  padding-left: 60px; }
+
+.dom-list ul ul ul ul ul p {
+  padding-left: 75px; }
+
+.dom-list ul ul ul ul ul ul p {
+  padding-left: 90px; }
+
+.dom-list ul ul ul ul ul ul ul p {
+  padding-left: 105px; }
+
+.dom-list li {
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #dddddd;
+  position: relative; }
+
+.dom-list li .toggleList.has-no-children {
+  filter: alpha(opacity=0);
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0; }
+
+.dom-list li p {
+  padding-right: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+
+.dom-list li p i {
+  display: inline-block;
+  width: 10px;
+  color: #9c9c9c;
+  padding-right: 5px;
+  transition: all 0.1s ease 0s;
+  cursor: pointer; }
+
+.dom-list li p i.close {
+  transform: rotate(-90deg); }
+
+.dom-list p .add-function {
+  width: 30px;
+  height: 100%;
+  float: right;
+  cursor: pointer; }
+
+.dom-list .add-function {
+  width: 30px;
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+.dom-list .add-function i {
+  color: #9c9c9c; }
+
+.dom-list .add-function .li-department-setting {
+  position: absolute;
+  display: block;
+  width: 80px;
+  right: 2px;
+  top: 43px;
+  text-align: center;
+  z-index: 99;
+  padding: 3px 0;
+  background: #ffffff;
+  box-shadow: 0px 0px 3px #aaaaaa;
+  border-radius: 3px;
+  line-height: 40px;
+  display: none; }
+
+.dom-list .add-function .li-department-setting {
+  cursor: pointer; }
+
+.dom-list .add-function .li-department-setting .setting-option {
+  height: 30px;
+  line-height: 30px;
+  color: #555555; }
+
+.dom-list.employee-count {
+  text-align: center;
+  border-top: none; }
+
+.dom-list.employee-count li {
+  width: 100%;
+  height: 40px;
+  line-height: 40px; }
+
+.add-department-name-content {
+  text-align: center;
+  padding-left: 50px; }
+  .add-department-name-content .add-department-name {
+    border: 1px solid #eeeeee;
+    border-radius: 4px;
+    width: 300px;
+    height: 40px;
+    padding-left: 20px; }
+
+.middle-text {
+  text-align: center; }
+
+#employee-list {
+  display: block;
+  height: 100%;
+  width: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-right: #eee solid 1px;
+  position: absolute;
+  top: 0;
+  left: 300px;
+  box-sizing: border-box; }
+
+#employee-list li {
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #eeeeee;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+#employee-list li.direct-child {
+  color: #555555; }
+
+#employee-list li.no-direct-child {
+  color: #999999; }
+
+#employee-list .show-list .department-name {
+  color: #555555; }
+
+/*# sourceMappingURL=organizationStructure.css.map */
 
 
-        .dom-tree li{
-            width: 110px;
-            height: 60px;
-            background-color: pink;
-            color:darkred;
-            border-radius: 4px;
-            font-size: 12px;
-            margin: auto;
-            box-sizing: border-box;
-            position: relative;
+/*组织架构待分配hover*/
+#organizationWin .unappropriated:hover {
+  background-color: #eaf9f6; }
 
-        }
+.dom-tree li {
+  background-color: #006b60; }
 
-        .dom-tree li.original-node{
-            width: 120px;
-            height: 50px;
-            line-height: 36px;
-            font-size: 14px;
-        }
+.dom-tree li .closeNodeBtn i {
+  color: #006b60; }
 
-        .dom-tree li.last-children{
-            margin: 0 15px;
-            box-sizing: border-box;
+.dom-tree li .node-admin-btn .float-alert {
+  color: #006b60; }
 
-        }
-        .dom-tree li.children-hidden{
-            margin: 0 15px;
-            box-sizing: border-box;
+.dom-tree li .node-admin-btn:hover .icon-add3 {
+  color: #006b60; }
 
-        }
+.dom-tree li .node-admin-btn .admin-lenovo li:hover {
+  background-color: #eaf9f6; }
 
+#show-list-btn {
+  background: #006b60; }
 
-        .dom-tree li .node-content{
-            height: 10px;
-            text-align: center;
-            padding: 5px 0px 4px 0px;
-        }
-        .dom-tree li .closeNodeBtn{
-            width: 20px;
-            height: 20px;
-            /*background: black;*/
-            position: absolute;
-            left: 50%;
-            top:60px;
-            margin-left: -10px;
-            border-radius: 50%;
-        }
-        .dom-tree li .closeNodeBtn i{
-            font-size: 20px;
-        }
+.dom-list li:hover {
+  background: #eaf9f6; }
 
-        .dom-tree li.last-children .closeNodeBtn{
-            display: none;
-        }
+.dom-list li:hover .add-function i {
+  color: #006b60; }
 
-        .dom-tree li .node-admin-btn{
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            top:0;
-            left: 100%;
-        }
-        .dom-tree li .node-admin-btn i{
-            font-size: 20px;
-        }
+.dom-list .add-function .li-department-setting .setting-option:hover {
+  background: #eaf9f6; }
 
-
-        .dom-tree .node-line{
-            height: 20px;
-            box-sizing: border-box;
-        }
-        .dom-tree .node-line .left-line{
-            display: block;
-            box-sizing: border-box;
-            width: 50%;
-            height: 100%;
-            border-right:1px dashed #ccc ;
-            float: left;
-        }
-        .dom-tree .node-line .right-line{
-            display: block;
-            box-sizing: border-box;
-            width: 50%;
-            height: 100%;
-            border-left: 1px dashed #ccc;
-            float:right;
-        }
-
-        .dom-tree .node-line.has-boder-top .left-line{
-            border-top: 2px dashed #ccc;
-        }
-        .dom-tree .node-line.has-boder-top .right-line{
-            border-top: 2px dashed #ccc;
-        }
-
-
-        /*左边的ul*/
-        #orgnization-list{
-            float: left;
-            width: 500px;
-            height: 100%;
-            font-size: 14px;
-            position: relative;
-        }
-
-        #department-list{
-            width: 280px;
-            height: 100%;
-            padding: 0px 10px 20px 10px;
-            background: #fcfcfc;
-            overflow-y: auto;
-            overflow-x: hidden;
-            border-right: #EEEEEE solid 1px;
-            position: absolute;
-            top:0;
-            left:0;
-        }
-        #employee-list{
-            height: 100%;
-            width: 190px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            border-right: #eee solid 1px;
-            position: absolute;
-            top:0;
-            left:300px;
-        }
-
-        .dom-list{
-            border-top: 1px solid #dddddd;
-        }
-
-        .dom-list ul p{
-            padding-left: 15px;
-        }
-        .dom-list ul ul p{
-            padding-left: 30px;
-        }
-        .dom-list ul ul ul p{
-            padding-left: 45px;
-        }
-        .dom-list ul ul ul ul p{
-            padding-left: 60px;
-        }
-        .dom-list ul ul ul ul ul p{
-            padding-left: 75px;
-        }
-        .dom-list ul ul ul ul ul ul p{
-            padding-left: 90px;
-        }
-        .dom-list ul ul ul ul ul ul ul p{
-            padding-left: 105px;
-        }
-
-
-        .dom-list li{
-            height:50px;
-            line-height: 50px;
-            border-bottom: 1px solid #dddddd;
-            position: relative;
-        }
-
-        .dom-list li:hover{
-            background: rgba(0, 192, 239, 0.31);
-        }
-
-        .dom-list li:hover .add-function i{
-            color:#0094c1;
-        }
-
-        .dom-list li p i{
-            color: #9c9c9c;
-            padding-right: 5px;
-        }
-
-        .dom-list p .add-function{
-            width: 30px;
-            height: 100%;
-            float: right;
-
-        }
-        .dom-list .add-function{
-            width: 30px;
-            position: absolute;
-            right: 0;
-            top:0;
-        }
-
-        .dom-list .add-function i{
-            color: #9c9c9c;
-        }
-
-        .dom-list .add-function .li-department-setting{
-            position: absolute;
-            display: block;
-            width: 80px;
-            right: 0px;
-            top: 45px;
-            text-align: center;
-            z-index: 99;
-            padding: 3px 0;
-            background: #ffffff;
-            box-shadow: 0px 0px 3px #aaaaaa;
-            border-radius: 3px;
-            line-height: 40px;
-            display: none;
-        }
-
-        .dom-list .add-function .li-department-setting{
-            cursor: pointer;
-        }
-
-        .dom-list .add-function .li-department-setting .setting-option{
-            height: 30px;
-            line-height: 30px;
-        }
-
-        .dom-list .add-function .li-department-setting .setting-option:hover{
-            background: rgba(0, 192, 239, 0.31);
-        }
-
-        .dom-list.employee-count{
-            text-align: center;
-            color:#0094c1;
-            border-top: none;
-
-        }
-
-        .dom-list.employee-count li{
-            width: 100%;
-            height: 40px;
-            line-height: 40px;
-        }
-
-
-
-
-
-
-
-
-
-
+.dom-list.employee-count {
+  color: #006b60; }
 
 
 
